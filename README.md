@@ -1,4 +1,4 @@
-Sunshine-patsev
+Sunshine-patsev in Android StudyJam - Omsk 2016
 ========
 
 Sunshine is the companion Android app for the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853).
