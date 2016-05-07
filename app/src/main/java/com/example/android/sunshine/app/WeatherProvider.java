@@ -37,7 +37,7 @@ public class WeatherProvider extends ContentProvider {
 
     private static final SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder;
 
-    static {
+    static{
         sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
 
         //This is an inner join which looks like
@@ -53,12 +53,12 @@ public class WeatherProvider extends ContentProvider {
 
     //location.location_setting = ?
     private static final String sLocationSettingSelection =
-            com.example.android.sunshine.app.data.WeatherContract.LocationEntry.TABLE_NAME +
+            com.example.android.sunshine.app.data.WeatherContract.LocationEntry.TABLE_NAME+
                     "." + com.example.android.sunshine.app.data.WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " = ? ";
 
     //location.location_setting = ? AND date >= ?
     private static final String sLocationSettingWithStartDateSelection =
-            com.example.android.sunshine.app.data.WeatherContract.LocationEntry.TABLE_NAME +
+            com.example.android.sunshine.app.data.WeatherContract.LocationEntry.TABLE_NAME+
                     "." + com.example.android.sunshine.app.data.WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " = ? AND " +
                     com.example.android.sunshine.app.data.WeatherContract.WeatherEntry.COLUMN_DATE + " >= ? ";
 
@@ -156,8 +156,10 @@ public class WeatherProvider extends ContentProvider {
 
         switch (match) {
             // Student: Uncomment and fill out these two cases
-//            case WEATHER_WITH_LOCATION_AND_DATE:
-//            case WEATHER_WITH_LOCATION:
+            case WEATHER_WITH_LOCATION_AND_DATE:
+                return com.example.android.sunshine.app.data.WeatherContract.WeatherEntry.CONTENT_ITEM_TYPE;
+            case WEATHER_WITH_LOCATION:
+                return com.example.android.sunshine.app.data.WeatherContract.WeatherEntry.CONTENT_TYPE;
             case WEATHER:
                 return com.example.android.sunshine.app.data.WeatherContract.WeatherEntry.CONTENT_TYPE;
             case LOCATION:
@@ -175,7 +177,8 @@ public class WeatherProvider extends ContentProvider {
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
             // "weather/*/*"
-            case WEATHER_WITH_LOCATION_AND_DATE: {
+            case WEATHER_WITH_LOCATION_AND_DATE:
+            {
                 retCursor = getWeatherByLocationSettingAndDate(uri, projection, sortOrder);
                 break;
             }
@@ -215,7 +218,7 @@ public class WeatherProvider extends ContentProvider {
             case WEATHER: {
                 normalizeDate(values);
                 long _id = db.insert(com.example.android.sunshine.app.data.WeatherContract.WeatherEntry.TABLE_NAME, null, values);
-                if (_id > 0)
+                if ( _id > 0 )
                     returnUri = com.example.android.sunshine.app.data.WeatherContract.WeatherEntry.buildWeatherUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
